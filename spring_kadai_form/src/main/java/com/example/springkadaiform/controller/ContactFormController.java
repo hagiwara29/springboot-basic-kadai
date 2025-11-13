@@ -15,14 +15,14 @@ import jakarta.validation.Valid;
 public class ContactFormController {
 
     // フォーム画面の表示
-    @GetMapping("/contact")
+    @GetMapping("/form")
     public String showForm(Model model) {
         model.addAttribute("contactForm", new ContactForm());
-        return "contactFormView";
+        return "form";
     }
 
     // 確認画面への遷移
-    @PostMapping("/contact/confirm")
+    @PostMapping("/form")
     public String confirm(
             @ModelAttribute @Valid ContactForm contactForm,
             BindingResult bindingResult,
@@ -30,16 +30,16 @@ public class ContactFormController {
 
         if (bindingResult.hasErrors()) {
             // バリデーションエラー → 元のフォーム画面へ戻す
-            return "contactFormView";
+            return "form";
         }
 
         // 問題なし → 確認画面へ
         model.addAttribute("contactForm", contactForm);
-        return "confirmView";
+        return "confirm";
     }
 
     // 完了処理（今回はダミー）
-    @PostMapping("/contact/complete")
+    @PostMapping("/complete")
     public String complete() {
         return "completeView"; // 任意（今回はconfirm後に完了画面がある場合）
     }
