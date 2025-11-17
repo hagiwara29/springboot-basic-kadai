@@ -21,27 +21,33 @@ public class ContactFormController {
         return "form";
     }
 
-    // 確認画面への遷移
+    // 確認画面に進む（POST）
     @PostMapping("/form")
     public String confirm(
-            @ModelAttribute @Valid ContactForm contactForm,
-            BindingResult bindingResult,
-            Model model) {
+            @ModelAttribute("contactForm") @Valid ContactForm contactForm,
+            BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            // バリデーションエラー → 元のフォーム画面へ戻す
+            // エラーがあればフォームに戻る
             return "form";
         }
 
-        // 問題なし → 確認画面へ
-        model.addAttribute("contactForm", contactForm);
+        // contactForm は自動で Model に入る
         return "confirm";
     }
 
-    // 完了処理（今回はダミー）
+    // 完了画面
     @PostMapping("/complete")
     public String complete() {
-        return "completeView"; // 任意（今回はconfirm後に完了画面がある場合）
+        return "complete";
+    }
+
+    // ★ GET /confirm に直接アクセスされた場合の防御
+    @GetMapping("/confirm")
+    public String redirectConfirm() {
+        return "redirect:/form";
     }
 }
+
+
 
