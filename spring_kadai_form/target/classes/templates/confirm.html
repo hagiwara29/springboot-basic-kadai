@@ -5,19 +5,22 @@
     <title>確認画面</title>
 </head>
 <body>
-<h2>お問い合わせ内容確認</h2>
+
+<h2>内容の確認</h2>
 
 <p>名前：<span th:text="${contactForm.name}"></span></p>
 <p>メール：<span th:text="${contactForm.email}"></span></p>
 <p>内容：<span th:text="${contactForm.message}"></span></p>
 
-<form th:action="@{/form/complete}" method="post">
-    <input type="hidden" th:field="*{name}">
-    <input type="hidden" th:field="*{email}">
-    <input type="hidden" th:field="*{message}">
+<!-- hidden で値を引き継いで complete に渡す -->
+<form action="/complete" method="post">
+    <input type="hidden" name="name" th:value="${contactForm.name}">
+    <input type="hidden" name="email" th:value="${contactForm.email}">
+    <input type="hidden" name="message" th:value="${contactForm.message}">
     <button type="submit">送信</button>
 </form>
-<form th:action="@{/form}" method="get">
+
+<form action="/form" method="get">
     <button type="submit">戻る</button>
 </form>
 

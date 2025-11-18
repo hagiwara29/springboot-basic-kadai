@@ -29,7 +29,8 @@ public class ContactFormController {
 
         if (bindingResult.hasErrors()) {
             // エラーがあればフォームに戻る
-            return "form";
+        	
+       return "form";
         }
 
         // contactForm は自動で Model に入る
